@@ -91,6 +91,7 @@ class PatternMgr:
         def add(self, (pattern,that,topic), template):
                 """Add a [pattern/that/topic] tuple and its corresponding template
                 to the node tree.
+                Here store like a trie: pattern=>that=>topic=>template
 
                 """
                 # TODO: make sure words contains only legal characters
@@ -144,7 +145,7 @@ class PatternMgr:
 
                 # add the template.
                 if not node.has_key(self._TEMPLATE):
-                        self._templateCount += 1
+                        self._templateCount += 1  # count the total template
                 node[self._TEMPLATE] = template
 
         def match(self, pattern, that, topic):
