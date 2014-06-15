@@ -187,7 +187,7 @@ class Kernel:
         string is returned.
 
         """
-        try: return self._sessions[sessionID][name]
+        try: return self._sessions[sessionID][name]  # return inputHistory, outputHistory, inputStack
         except KeyError: return ""
 
     def setPredicate(self, name, value, sessionID = _globalSessionID):
@@ -304,6 +304,8 @@ class Kernel:
                 continue
             # store the pattern/template pairs in the PatternMgr.
             for key,tem in handler.categories.items():
+                # key: [ pattern, that, topic ]
+                # tem: [ tagName, property={}, childNodes as tem]... ]
                 self._brain.add(key,tem)
             # Parsing was successful.
             if self._verboseMode:
@@ -326,7 +328,7 @@ class Kernel:
         self._addSession(sessionID)
 
         # split the input into discrete sentences
-        sentences = Utils.sentences(input)
+        sentences = Utils. (input)
         finalResponse = ""
 
         for s in sentences:
@@ -1186,7 +1188,7 @@ if __name__ == "__main__":
     _testTag(k, 'topicstar test #1', 'test topicstar', ["Solyent Green is made of people!"])
     k.setPredicate("topic", "Soylent Ham and Cheese")
     _testTag(k, 'topicstar test #2', 'test topicstar multiple', ["Both Soylents Ham and Cheese are made of people!"])
-    _testTag(k, 'unicode support', u"ÔÇÉÏºÃ", [u"Hey, you speak Chinese! ÔÇÉÏºÃ"])
+    _testTag(k, 'unicode support', u"ï¿½ï¿½ï¿½Ïºï¿½", [u"Hey, you speak Chinese! ï¿½ï¿½ï¿½Ïºï¿½"])
     _testTag(k, 'uppercase', 'test uppercase', ["The Last Word Should Be UPPERCASE"])
     _testTag(k, 'version', 'test version', ["PyAIML is version %s" % k.version()])
     _testTag(k, 'whitespace preservation', 'test whitespace', ["Extra   Spaces\n   Rule!   (but not in here!)    But   Here   They   Do!"])
